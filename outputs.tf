@@ -138,16 +138,16 @@ output "lambda_role_unique_id" {
   value       = try(aws_iam_role.lambda[0].unique_id, "")
 }
 
-# CloudWatch Log Group
-output "lambda_cloudwatch_log_group_arn" {
-  description = "The ARN of the Cloudwatch Log Group"
-  value       = local.log_group_arn
-}
+# # CloudWatch Log Group
+# output "lambda_cloudwatch_log_group_arn" {
+#   description = "The ARN of the Cloudwatch Log Group"
+#   value       = local.log_group_arn
+# }
 
-output "lambda_cloudwatch_log_group_name" {
-  description = "The name of the Cloudwatch Log Group"
-  value       = local.log_group_name
-}
+# output "lambda_cloudwatch_log_group_name" {
+#   description = "The name of the Cloudwatch Log Group"
+#   value       = local.log_group_name
+# }
 
 # Deployment package
 output "local_filename" {
