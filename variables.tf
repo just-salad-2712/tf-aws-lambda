@@ -807,3 +807,36 @@ variable "logging_log_group" {
   type        = string
   default     = null
 }
+
+########
+# EXTRA
+########
+variable "filename" {
+  description = "(Optional) Path to the function's deployment package within the local filesystem. Exactly one of filename, image_uri, or s3_bucket must be specified."
+  type = string
+  default = null
+}
+
+variable "source_code_hash" {
+  description = "(Optional) Virtual attribute used to trigger replacement when source code changes. Must be set to a base64-encoded SHA256 hash of the package file specified with either filename or s3_key. The usual way to set this is filebase64sha256(\"file.zip\") (Terraform 0.11.12 and later) or base64sha256(file(\"file.zip\")) (Terraform 0.11.11 and earlier), where \"file.zip\" is the local filename of the lambda function source archive."
+  type = string
+  default = null
+}
+
+variable "s3_key" {
+  description = "(Optional) S3 key of an object containing the function's deployment package. When s3_bucket is set, s3_key is required."
+  type = string
+  default = null
+}
+
+variable "s3_object_version" {
+  description = "(Optional) Object version containing the function's deployment package. Conflicts with filename and image_uri."
+  type = string
+  default = null
+}
+
+variable "s3_object_source" {
+  description = "(Optional, conflicts with content and content_base64) Path to a file that will be read and uploaded as raw bytes for the object content."
+  type = string
+  default = null
+}
