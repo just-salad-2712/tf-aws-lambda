@@ -6,10 +6,10 @@ locals {
 resource "aws_lambda_function" "this" {
   count = local.create && var.create_function && !var.create_layer ? 1 : 0
 
-  function_name                      = var.function_name
-  description                        = var.description
+  function_name = var.function_name
+  description   = var.description
   # role                               = var.create_role ? aws_iam_role.lambda[0].arn : var.lambda_role
-  role = var.lambda_role
+  role                               = var.lambda_role
   handler                            = var.package_type != "Zip" ? null : var.handler
   memory_size                        = var.memory_size
   reserved_concurrent_executions     = var.reserved_concurrent_executions
@@ -42,8 +42,8 @@ resource "aws_lambda_function" "this" {
   # s3_bucket         = local.s3_bucket
   # s3_key            = local.s3_key
   # s3_object_version = local.s3_object_version
-  s3_bucket = var.s3_bucket
-  s3_key = var.s3_key
+  s3_bucket         = var.s3_bucket
+  s3_key            = var.s3_key
   s3_object_version = var.s3_object_version
 
 
@@ -151,8 +151,8 @@ resource "aws_lambda_layer_version" "this" {
   # s3_bucket         = local.s3_bucket
   # s3_key            = local.s3_key
   # s3_object_version = local.s3_object_version
-  s3_bucket = var.s3_bucket
-  s3_key = var.s3_key
+  s3_bucket         = var.s3_bucket
+  s3_key            = var.s3_key
   s3_object_version = var.s3_object_version
 
 }
