@@ -341,3 +341,16 @@ resource "aws_lambda_function_url" "this" {
     }
   }
 }
+
+resource "aws_lambda_invocation" "this" {
+  count = local.create && var.create_function && !var.create_layer && var.create_lambda_invocation ? 1 : 0
+
+  function_name = aws_lambda_function.this[0].function_name
+  input = var.lambda_invocation_input
+  lifecycle_scope = var.lifecycle_scope
+  qualifier = var.qualifier
+  terraform_key = var.terraform_key
+  triggers = var.triggers
+
+  depends_on = [ aws_lambda_function.this ]
+}

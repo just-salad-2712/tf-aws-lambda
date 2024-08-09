@@ -137,3 +137,9 @@ output "lambda_role_unique_id" {
   description = "The unique id of the IAM role created for the Lambda Function"
   value       = try(aws_iam_role.lambda[0].unique_id, "")
 }
+
+# Lambda Invocation
+output "lambda_invocation_result" {
+  description = "String result of the lambda function invocation."
+  value = try(aws_lambda_invocation.this[0].result, "")
+}
