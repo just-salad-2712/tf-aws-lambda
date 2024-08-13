@@ -1,3 +1,5 @@
+# Test Lambda Fucntion helloworld voi URL
+
 provider "aws" {
   region = "ap-southeast-1"
 
@@ -14,7 +16,6 @@ data "aws_caller_identity" "current" {}
 module "lambda_function" {
   source = "../"
 
-  create        = true
   function_name = "Lambdatest"
   description   = "Testing lambda fuction"
   lambda_role   = "arn:aws:iam::637423165302:role/Lambda_Admin"
@@ -25,4 +26,16 @@ module "lambda_function" {
   tags = {
     Name = "my-lambda1"
   }
+
+  create_lambda_function_url = true
+  authorization_type         = "NONE"
+  cors = {
+    allow_credentials = true
+    allow_origins     = ["*"]
+    allow_methods     = ["*"]
+    allow_headers     = ["date", "keep-alive"]
+    expose_headers    = ["keep-alive", "date"]
+    max_age           = 86400
+  }
+  invoke_mode = "RESPONSE_STREAM"
 }
