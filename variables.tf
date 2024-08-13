@@ -42,13 +42,18 @@ variable "create_sam_metadata" {
 
 variable "create_lambda_invocation" {
   description = "Controls whether the Lambda Invocation should be created"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 ###########
 # Function
 ###########
+variable "lambda_filename" {
+  description = "(Optional) Path to the function's deployment package within the local filesystem. Exactly one of filename, image_uri, or s3_bucket must be specified."
+  type = string
+  default = ""
+}
 
 variable "lambda_at_edge" {
   description = "Set this to true if using Lambda@Edge, to enable publishing, limit the timeout, and allow edgelambda.amazonaws.com to invoke the function"
@@ -812,67 +817,4 @@ variable "logging_log_group" {
   description = "The CloudWatch log group to send logs to."
   type        = string
   default     = null
-}
-
-########
-# EXTRA
-########
-variable "filename" {
-  description = "(Optional) Path to the function's deployment package within the local filesystem. Exactly one of filename, image_uri, or s3_bucket must be specified."
-  type        = string
-  default     = null
-}
-
-variable "source_code_hash" {
-  description = "(Optional) Virtual attribute used to trigger replacement when source code changes. Must be set to a base64-encoded SHA256 hash of the package file specified with either filename or s3_key. The usual way to set this is filebase64sha256(\"file.zip\") (Terraform 0.11.12 and later) or base64sha256(file(\"file.zip\")) (Terraform 0.11.11 and earlier), where \"file.zip\" is the local filename of the lambda function source archive."
-  type        = string
-  default     = null
-}
-
-variable "s3_key" {
-  description = "(Optional) S3 key of an object containing the function's deployment package. When s3_bucket is set, s3_key is required."
-  type        = string
-  default     = null
-}
-
-variable "s3_object_version" {
-  description = "(Optional) Object version containing the function's deployment package. Conflicts with filename and image_uri."
-  type        = string
-  default     = null
-}
-
-variable "s3_object_source" {
-  description = "(Optional, conflicts with content and content_base64) Path to a file that will be read and uploaded as raw bytes for the object content."
-  type        = string
-  default     = null
-}
-
-variable "lambda_invocation_input" {
-  description = "(Required) JSON payload to the lambda function."
-  type = any
-  default = null
-}
-
-variable "lifecycle_scope" {
-  description = "(Optional) Lifecycle scope of the resource to manage. Valid values are CREATE_ONLY and CRUD. Defaults to CREATE_ONLY. CREATE_ONLY will invoke the function only on creation or replacement. CRUD will invoke the function on each lifecycle event, and augment the input JSON payload with additional lifecycle information."
-  type = string
-  default = null
-}
-
-variable "qualifier" {
-  description = "(Optional) Qualifier (i.e., version) of the lambda function. Defaults to $LATEST."
-  type = string
-  default = null
-}
-
-variable "terraform_key" {
-  description = "(Optional) The JSON key used to store lifecycle information in the input JSON payload. Defaults to tf. This additional key is only included when lifecycle_scope is set to CRUD."
-  type = any
-  default = null
-}
-
-variable "triggers" {
-  description = "(Optional) Map of arbitrary keys and values that, when changed, will trigger a re-invocation. To force a re-invocation without changing these keys/values, use the terraform taint command."
-  type = any
-  default = null
 }

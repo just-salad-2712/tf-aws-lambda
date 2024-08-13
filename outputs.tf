@@ -138,8 +138,32 @@ output "lambda_role_unique_id" {
   value       = try(aws_iam_role.lambda[0].unique_id, "")
 }
 
-# Lambda Invocation
-output "lambda_invocation_result" {
-  description = "String result of the lambda function invocation."
-  value = try(aws_lambda_invocation.this[0].result, "")
+# Deployment package
+output "local_filename" {
+  description = "The filename of zip archive deployed (if deployment was from local)"
+  value       = local.filename
+
+  depends_on = [
+    null_resource.archive,
+  ]
+}
+
+output "s3_object" {
+  description = "The map with S3 object data of zip archive deployed (if deployment was from S3)"
+  value = {
+    bucket     = local.s3_bucket
+    key        = local.s3_key
+    version_id = local.s3_object_version
+  }
+}
+
+# CloudWatch Log Group
+output "lambda_cloudwatch_log_group_arn" {
+  description = "The ARN of the Cloudwatch Log Group"
+  value       = local.log_group_arn
+}
+
+output "lambda_cloudwatch_log_group_name" {
+  description = "The name of the Cloudwatch Log Group"
+  value       = local.log_group_name
 }
