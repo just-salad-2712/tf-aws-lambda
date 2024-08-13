@@ -37,4 +37,10 @@ module "lambda_function" {
     max_age           = 86400
   }
   invoke_mode = "RESPONSE_STREAM"
+
+  enable_invocation = true
+  invocation_input = jsonencode({
+    "key1" : "value1",
+    "key2" : "value2",
+  })
 }

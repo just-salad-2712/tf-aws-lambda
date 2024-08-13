@@ -1,3 +1,21 @@
+variable "enable_invocation" {
+  description = "Controls whether invocation should be enabled"
+  type = bool
+  default = false
+}
+
+variable "invocation_input" {
+  description = "(Required) JSON payload to the lambda function."
+  type = any
+  default = {}
+}
+
+variable "lifecycle_scope" {
+  description = "(Optional) Lifecycle scope of the resource to manage. Valid values are CREATE_ONLY and CRUD. Defaults to CREATE_ONLY. CREATE_ONLY will invoke the function only on creation or replacement. CRUD will invoke the function on each lifecycle event, and augment the input JSON payload with additional lifecycle information."
+  type = string
+  default = null
+}
+
 variable "create" {
   description = "Controls whether resources should be created"
   type        = bool

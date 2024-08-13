@@ -21,6 +21,14 @@ locals {
 
 }
 
+resource "aws_lambda_invocation" "this" {
+  count = local.create && var.create_function && var.enable_invocation ? 1 : 0
+
+  function_name = var.function_name
+  input = var.invocation_input
+  lifecycle_scope = var.lifecycle_scope
+}
+
 resource "aws_lambda_function" "this" {
   count = local.create && var.create_function && !var.create_layer ? 1 : 0
 
