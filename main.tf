@@ -27,6 +27,8 @@ resource "aws_lambda_invocation" "this" {
   function_name = var.function_name
   input = var.invocation_input
   lifecycle_scope = var.lifecycle_scope
+
+  depends_on = [ aws_lambda_function.this ]
 }
 
 resource "aws_lambda_function" "this" {

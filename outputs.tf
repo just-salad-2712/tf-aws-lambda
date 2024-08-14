@@ -1,3 +1,9 @@
+# Lambda Invocation
+output "lambda_invocattion_result" {
+  description = "String result of the lambda function invocation."
+  value = try(aws_lambda_invocation.this[0].result, "")
+}
+
 # Lambda Function
 output "lambda_function_arn" {
   description = "The ARN of the Lambda Function"
